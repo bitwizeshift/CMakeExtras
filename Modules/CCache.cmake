@@ -2,14 +2,14 @@
 # file LICENSE.txt or https://opensource.org/licenses/MIT for details.
 
 #.rst:
-# EnableCCache
-# ------------
+# CCache
+# ------
 #
 # This module defines a simple way of enable CCache in a project, if
 # the executable is discovered.
 
 if( ${CMAKE_VERSION} VERSION_LESS 3.5.0 )
-    include(CMakeParseArguments)
+  include(CMakeParseArguments)
 endif()
 
 #.rst
