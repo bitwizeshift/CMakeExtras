@@ -9,15 +9,18 @@
 # in circumstances where it is otherwise unset.
 
 #.rst:
-# .. command::add_build_configuration
+# .. command:: add_build_configuration
 #
-#   Appends a build configuration to the list of valid configurations
+# Appends a build configuration to the list of valid configurations
 #
-# ::
+# .. code-block:: cmake
 #
-#    add_build_configuration( <configuration> )
+#   add_build_configuration(<configuration>)
 #
-#    <configuration> - the configuration to add to the list of valid types
+# The parameters are:
+#
+#   ``<configuration>``
+#     The configuration to add to the list of valid types
 function(add_build_configuration configuration)
   if (CMAKE_CONFIGURATION_TYPES)
     set(CMAKE_CONFIGURATION_TYPES 
@@ -30,15 +33,18 @@ function(add_build_configuration configuration)
 endfunction()
 
 #.rst:
-# .. command::set_build_configurations
+# .. command:: set_build_configurations
 #
-#   Sets the list of valid build configurations
+# Sets the list of valid build configurations
 #
-# ::
+# .. code-block:: cmake
 #
-#    set_build_configurations( [<configuration>...] )
+#   set_build_configurations([<configuration>...])
 #
-#    <configuration> - the configurations to be set to
+# The parameters are:
+#
+#   ``<configuration>``
+#     the configurations to be set to
 function(set_build_configurations)
   if (CMAKE_CONFIGURATION_TYPES)
     set(CMAKE_CONFIGURATION_TYPES 
@@ -51,15 +57,18 @@ function(set_build_configurations)
 endfunction()
 
 #.rst:
-# .. command::get_build_configurations
+# .. command:: get_build_configurations
 #
-#    Gets the list of valid build configurations
+# Gets the list of valid build configurations
 #
-# ::
+# .. code-block:: cmake
 #
-#    get_build_configurations( <result_var> )
+#    get_build_configurations(<result_var>)
 #
-#    <result_var> - the name of the variable to set the result to
+# The parameters are:
+#
+#    ``<result_var>``
+#      the name of the variable to set the result to
 function(get_build_configurations result_var)
   if (CMAKE_CONFIGURATION_TYPES)
     set("${result_var}" "${CMAKE_CONFIGURATION_TYPES}" PARENT_SCOPE)
@@ -70,17 +79,20 @@ function(get_build_configurations result_var)
 endfunction()
 
 #.rst:
-# .. command::set_default_build_configuration
+# .. command:: set_default_build_configuration
 #
-#   Sets the default cmake build type/configuration for when no 
-#   configuration is specified. This only has an effect on single-config
-#   generators like Makefile and Ninja.
+# Sets the default cmake build type/configuration for when no 
+# configuration is specified. This only has an effect on single-config
+# generators like Makefile and Ninja.
 #
-# ::
+# .. code-block:: cmake
 #
 #   set_default_configuration( <configuration> )
 #
-#   <configuration> - The configuration to default to
+# The parameters are:
+#
+#   ``<configuration>``
+#     The configuration to default to
 function(set_default_build_configuration configuration)
   if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     set(CMAKE_BUILD_TYPE 
@@ -91,15 +103,16 @@ function(set_default_build_configuration configuration)
 endfunction()
 
 #.rst:
-# .. command::reset_build_configurations
+# .. command:: reset_build_configurations
 #
-#   Resets the default build configuration list
-#
-# ::
-#
-#   reset_build_configurations()
+# Resets the default build configuration list
 function(reset_build_configurations)
-  set(__default_configurations "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
+  set(__default_configurations 
+    "Debug" 
+    "Release" 
+    "MinSizeRel" 
+    "RelWithDebInfo"
+  )
   if (CMAKE_CONFIGURATION_TYPES)
     set(CMAKE_CONFIGURATION_TYPES 
       ${__default_configurations} 
@@ -114,17 +127,13 @@ endfunction()
 #.rst:
 # .. command::ensure_valid_configuration
 #
-#   Ensures that the specified CMAKE_BUILD_TYPE refers to a valid build 
-#   configuration.
-#   This only has effect on single-configuration generators like Makefile or
-#   Ninja.
+# Ensures that the specified C``MAKE_BUILD_TYPE`` refers to a valid build 
+# configuration.
+# This only has effect on single-configuration generators like Makefile or
+# Ninja.
 #
-#   Configurations are compared case-insensitively, since CMake does not
-#   distinguish between cases for CMAKE_BUILD_TYPE.
-#
-# ::
-#
-#   ensure_valid_configuration()
+# Configurations are compared case-insensitively, since CMake does not
+# distinguish between cases for ``CMAKE_BUILD_TYPE``.
 function(ensure_valid_configuration)
   if (CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     get_build_configurations(build_configurations)

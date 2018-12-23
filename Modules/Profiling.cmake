@@ -32,10 +32,6 @@ endfunction()
 # This command enables the C/C++ compiler option for profiling
 # for all subsequent targets created after this at the same or 
 # deeper directory scopes.
-#
-# .. code-block:: cmake
-#
-#   enable_profiling()
 function(enable_profiling)
   _get_profile_flags(flags)
   add_compile_options(${flags})
@@ -51,10 +47,7 @@ endfunction()
 #
 #   target_enable_profiling(<target>)
 #
-# The arguments are:
-# 
-#   ``<target>``
-#     The name of the target to enable profiling
+# Enables profiling for the target with name ``<target>``
 function(target_enable_profiling target)
   _get_profile_flags(flags)
   target_compile_options("${target}" PRIVATE ${flags})

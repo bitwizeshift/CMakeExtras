@@ -13,29 +13,36 @@ if( ${CMAKE_VERSION} VERSION_LESS 3.5.0 )
 endif()
 
 #.rst
-# .. command::source_group_tree
+# .. command:: source_group_tree
 #
-#   This command defines a grouping for source files in IDE project 
-#   generation. The groups are created recursively based on the 
-#   specified <root> along with their relative paths to the given 
-#   source files.
+# This command defines a grouping for source files in IDE project 
+# generation. 
 #
-#   This function is not supported in CMake 3.7 or before, and is 
-#   added here for compatibility.
+# This function is not supported in CMake 3.7 or before, and is 
+# added here for compatibility.
 #
 #   If this is executed in CMake 3.8 or later, it defaults to 
 #   source_group(TREE ...) instead to preserve functionality.
 #
-# ::
+# .. code-block:: cmake
 #
 #   source_group_tree(<root> [PREFIX <prefix>] [FILES <src>])
 #
-#   <root>   - Paths of <src> files will be cut to be relative to <root>. 
-#   <prefix> - Source group and files located directly in <root> path, will 
-#              be placed in <prefix> source groups.
-#   <src>    - Any source file specified explicitly will be placed in group
-#              <name>. Relative paths are interpreted with respect to the 
-#              current source directory.
+# Creates groups recursively based on the specified ``<root>`` 
+# along with their relative paths to the given source files.
+#
+# The options are:
+#
+#   ``PREFIX`` 
+#     Source group and files located directly in <root> path, will 
+#     be placed in <prefix> source groups.
+#
+#   ``FILES``
+#     Any source file specified explicitly will be placed in group
+#     made up of the relative path between ``<root>`` and the file.
+#     Relative paths are interpreted with respect to the 
+#     current source directory.
+#     It is an error if any ``<src>`` is not prefixed by ``<prefix>``
 function(source_group_tree root)
 
   cmake_parse_arguments(

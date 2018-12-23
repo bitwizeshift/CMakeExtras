@@ -14,16 +14,19 @@ if( ${CMAKE_VERSION} VERSION_LESS 3.5.0 )
 endif()
 
 #.rst:
-# ..command::cmake_debug_dump_variables
+# .. command:: cmake_debug_dump_variables
 #
 #   This command dumps out the names and values of all variables that are
 #   currently set and in scope.
 #
-# ::
+# .. code-block:: cmake
 #
 #   cmake_debug_dump_variables([MATCHING <regex>])
+# 
+# The options are:
 #
-#   - <regex> : A regular-expression for the names of the variables to set
+#   ``MATCHING``
+#     A regular-expression for the names of the variables to set
 function(cmake_debug_dump_variables)
   cmake_parse_arguments(
     CMAKE_DEBUG # Prefix
@@ -53,16 +56,19 @@ function(_cmake_debug_watch_variable_callback variable access value file)
 endfunction()
 
 #.rst:
-# ..command::cmake_debug_watch_variables
+# .. command:: cmake_debug_watch_variables
 #
 #   This command logs all accesses to all variables which match the specified
 #   regex, or all variables (if unspecified)
 #
-# ::
+# .. code-block:: cmake
 #
 #   cmake_debug_dump_variables([MATCHING <regex>])
 #
-#   - <regex> : A regular-expression for the names of the variables to watch
+# The options are:
+#
+#   ``MATCHING``
+#     A regular-expression for the names of the variables to watch
 function(cmake_debug_watch_variables)
   cmake_parse_arguments(
     CMAKE_DEBUG # Prefix
@@ -87,15 +93,18 @@ function(cmake_debug_watch_variables)
 endfunction()
 
 #.rst:
-# ..command::cmake_debug_message
+# .. command:: cmake_debug_message
 #
-#   Prints a debug message
+# Prints a debug message
 #
-# ::
+# .. code-block:: cmake
 #
 #   cmake_debug_message([<message>...])
 #
-#   - <message> : The message strings to print
+# The parameter(s) are:
+#
+#   ``<message>``
+#     The message strings to print
 function(cmake_debug_message)
   message(AUTHOR_WARNING ${ARGN})
 endfunction()

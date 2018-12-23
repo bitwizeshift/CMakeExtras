@@ -9,15 +9,16 @@
 # executables, or modules in standard way while cross-compiling.
 
 #.rst:
-# ..command::find_host_package
+# .. command:: find_host_package
 #
-#   Finds a package using the host computer's find paths.
+# Finds a package using the host computer's find paths.
 #
-# ::
+# .. code-block:: cmake
 #
 #   find_host_package([<arg>...])
 # 
-#   arg - any argument to forward to find_package
+# Calls the :command:`find_package` command with ``<arg>...``, but searches
+# on the host system instead of the target system.
 macro(find_host_package)
   # all mode variables are set to 'never', since find_package calls
   # may be calling arbitrary CMake which will also implicitly depend on 
@@ -42,15 +43,16 @@ macro(find_host_package)
 endmacro()
 
 #.rst:
-# ..command::find_host_library
+# .. command:: find_host_library
 #
-#   Finds a library on the host computer.
+# Finds a library on the host computer.
 #
-# ::
+# .. code-block:: cmake
 #
 #   find_host_library([<arg>...])
 # 
-#   arg - any argument to forward to find_library
+# Calls the :command:`find_library` command with ``<arg>...``, but searches
+# on the host system instead of the target system.
 macro(find_host_library)
   set(__OLD_MODE ${CMAKE_FIND_ROOT_PATH_MODE_LIBRARY})
   set(CMAKE_FIND_ROOT_PATH_MODE_LIBARY NEVER)
@@ -60,15 +62,16 @@ macro(find_host_library)
 endmacro()
 
 #.rst:
-# ..command::find_host_program
+# .. command:: find_host_program
 #
-#   Finds a program on the host computer.
+# Finds a program on the host computer.
 #
-# ::
+# .. code-block:: cmake
 #
 #   find_host_program([<arg>...])
 # 
-#   arg - any argument to forward to find_program
+# Calls the :command:`find_program` command with ``<arg>...``, but searches
+# on the host system instead of the target system.
 macro(find_host_program)
   set(__OLD_MODE ${CMAKE_FIND_ROOT_PATH_MODE_PROGRAM})
   set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
@@ -78,15 +81,16 @@ macro(find_host_program)
 endmacro()
 
 #.rst:
-# ..command::find_host_file
+# .. command:: find_host_file
 #
-#   Finds a file on the host computer.
+# Finds a file on the host computer.
 #
-# ::
+# .. code-block:: cmake
 #
 #   find_host_file([<arg>...])
 # 
-#   arg - any argument to forward to find_file
+# Calls the :command:`find_file` command with ``<arg>...``, but searches
+# on the host system instead of the target system.
 macro(find_host_file)
   set(__OLD_MODE ${CMAKE_FIND_ROOT_PATH_MODE_INCLUDE})
   set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE NEVER)
@@ -96,15 +100,16 @@ macro(find_host_file)
 endmacro()
 
 #.rst:
-# ..command::find_host_path
+# .. command:: find_host_path
 #
-#   Finds a path on the host computer.
+# Finds a path on the host computer.
 #
-# ::
+# .. code-block:: cmake
 #
 #   find_host_path([<arg>...])
 # 
-#   arg - any argument to forward to find_path
+# Calls the :command:`find_path` command with ``<arg>...``, but searches
+# on the host system instead of the target system.
 macro(find_host_path)
   set(__OLD_MODE ${CMAKE_FIND_ROOT_PATH_MODE_INCLUDE})
   set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE NEVER)

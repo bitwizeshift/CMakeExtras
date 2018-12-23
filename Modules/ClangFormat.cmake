@@ -13,21 +13,27 @@
 #
 #   CLANG_FORMAT_PATH : Path to the clang-format executable, or NOTFOUND
 
+set(__FIND_ROOT_PATH_MODE_PROGRAM ${CMAKE_FIND_ROOT_PATH_MODE_PROGRAM})
+set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+
 find_program(CLANG_FORMAT_PATH clang-format QUIET)
 mark_as_advanced(CLANG_FORMAT_PATH)
+
+set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM ${__FIND_ROOT_PATH_MODE_PROGRAM})
+set(__FIND_ROOT_PATH_MODE_PROGRAM)
 
 if (CMAKE_VERSION VERSION_LESS 3.5.0)
   include(CMakeParseArguments)
 endif()
 
 #.rst:
-# .. command::add_clang_format_target
+# .. command:: add_clang_format_target
 #
-#   This command sets the clang-format language and arguments globally for all
-#   targets defined after the invocation at any directory scope deeper than
-#   the current setting
+# This command sets the clang-format language and arguments globally for all
+# targets defined after the invocation at any directory scope deeper than
+# the current setting
 #
-# ::
+# .. code-block:: cmake
 #
 #   add_clang_format_target(
 #     <name>
@@ -38,17 +44,29 @@ endif()
 #     [SOURCES <source>...]
 #     [CLANG_FORMAT_ARGS <arg>...]
 #   )
+#
+# Adds a target with the name ``<name>`` that runs ``clang-format`` on the
+# input. The options are:
 # 
-#   - <name>     : The name of the clang-format target
-#   - INPLACE    : Makes the edits to the sources in-place
-#   - VEROSE     : Verbosely logs the changes being made (translates to 
-#                  -verbose flag)
-#   - <style>    : The clang-format style (translates to -style flag). 
-#                  Defaults to '-style=file' to read the file from disk.
-#   - <target>   : Target(s) to base the clang-format args on. Any <target>
-#                  will have its sources used for the clang-format target
-#   - <source>   : Source files to build
-#   - <arg>      : Arguments to forward directly to clang-format
+#   ``INPLACE``
+#     Makes the edits to the sources in-place
+#
+#   ``VEROSE`` 
+#     Verbosely logs the changes being made (translates to -verbose flag)
+#
+#   ``STYLE``
+#     The clang-format style (translates to -style flag). Defaults to 
+#     ``-style=file`` to read the file from disk.
+#
+#   ``TARGETS``
+#     Target(s) to base the ``clang-format`` args on. Any ``<target>`` will 
+#     have its sources used for the ``clang-format`` target
+#
+#   ``SOURCES``
+#     Source files to build
+#
+#   ``CLANG_FORMAT_ARGS``
+#     Arguments to forward directly to ``clang-format``
 function(add_clang_format_target target)
   if (NOT CLANG_FORMAT_PATH)
     message(FATAL_ERROR "add_clang_format_target: clang-format not found.")
