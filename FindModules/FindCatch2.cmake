@@ -9,11 +9,17 @@
 #
 # Find Philsquared's "Catch2" unit test library.
 #
-# ::
+# The following ``IMPORTED`` targets are defined:
 #
-#     Catch2::Catch2      - Interface library target for the Catch2 headers
-#     Catch2_FOUND        - TRUE if Catch2 was found
-#     Catch2_INCLUDE_DIRS - The include path for Catch2 headers
+#  ``Catch2::Catch2``
+#    Interface library target for the Catch2 headers
+#
+# The module defines the following variables:
+#
+#  ``Catch2_FOUND``
+#    ``TRUE`` if Catch2 was found
+#  ``Catch2_INCLUDE_DIRS``
+#    The include path for Catch2 headers
 
 find_path(
   Catch2_INCLUDE_DIR
