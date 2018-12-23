@@ -70,10 +70,20 @@ endfunction()
 #    ``<result_var>``
 #      the name of the variable to set the result to
 function(get_build_configurations result_var)
+  set(__default_configurations 
+    "Debug" 
+    "Release" 
+    "MinSizeRel" 
+    "RelWithDebInfo"
+  )
   if (CMAKE_CONFIGURATION_TYPES)
     set("${result_var}" "${CMAKE_CONFIGURATION_TYPES}" PARENT_SCOPE)
   else()
     get_property(build_types CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS)
+    if (NOT build_types)
+      set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ${__default_configurations})
+      set(build_types ${__default_configurations})
+    endif()
     set("${result_var}" "${build_types}" PARENT_SCOPE)
   endif()
 endfunction()
@@ -125,7 +135,7 @@ function(reset_build_configurations)
 endfunction()
 
 #.rst:
-# .. command::ensure_valid_configuration
+# .. command:: ensure_valid_build_configuration
 #
 # Ensures that the specified C``MAKE_BUILD_TYPE`` refers to a valid build 
 # configuration.
@@ -134,7 +144,7 @@ endfunction()
 #
 # Configurations are compared case-insensitively, since CMake does not
 # distinguish between cases for ``CMAKE_BUILD_TYPE``.
-function(ensure_valid_configuration)
+function(ensure_valid_build_configuration)
   if (CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     get_build_configurations(build_configurations)
 
@@ -148,7 +158,11 @@ function(ensure_valid_configuration)
       endif()
     endforeach()
     if (NOT valid)
-      message(FATAL_ERROR "ensure_valid_configuration: Invalid CMAKE_BUILD_TYPE specified '${CMAKE_BUILD_TYPE}'. Valid types are '${build_configurations}'")
+      message(FATAL_ERROR 
+        "ensure_valid_build_configuration:" 
+        "Invalid CMAKE_BUILD_TYPE specified '${CMAKE_BUILD_TYPE}'." 
+        "Valid types are '${build_configurations}'"
+      )
     endif()
   endif()
 endfunction()
