@@ -7,6 +7,11 @@
 #
 # This module defines various utilities to simplify the use of ``git`` from
 # within CMake scripts.
+#
+# This module defines the following variables:
+#
+#   ``GIT_EXECUTABLE`` 
+#     Path to the ``git`` executable, or ``NOTFOUND`` if it cannot be found
 
 find_package(Git QUIET)
 

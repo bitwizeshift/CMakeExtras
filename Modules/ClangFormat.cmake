@@ -7,17 +7,17 @@
 #
 # clang-format support in CMake
 #
-# This module defines the following variables
+# This module defines the following variables:
 #
-# ::
-#
-#   CLANG_FORMAT_PATH : Path to the clang-format executable, or NOTFOUND
+#   ``CLANG_FORMAT_EXECUTABLE`` 
+#     Path to the ``clang-format`` executable, or ``NOTFOUND`` if it cannot 
+#     be found.
 
 set(__FIND_ROOT_PATH_MODE_PROGRAM ${CMAKE_FIND_ROOT_PATH_MODE_PROGRAM})
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 
-find_program(CLANG_FORMAT_PATH clang-format QUIET)
-mark_as_advanced(CLANG_FORMAT_PATH)
+find_program(CLANG_FORMAT_EXECUTABLE clang-format QUIET)
+mark_as_advanced(CLANG_FORMAT_EXECUTABLE)
 
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM ${__FIND_ROOT_PATH_MODE_PROGRAM})
 set(__FIND_ROOT_PATH_MODE_PROGRAM)
@@ -68,7 +68,7 @@ endif()
 #   ``CLANG_FORMAT_ARGS``
 #     Arguments to forward directly to ``clang-format``
 function(add_clang_format_target target)
-  if (NOT CLANG_FORMAT_PATH)
+  if (NOT CLANG_FORMAT_EXECUTABLE)
     message(FATAL_ERROR "add_clang_format_target: clang-format not found.")
   endif()
 
@@ -110,7 +110,7 @@ function(add_clang_format_target target)
 
   add_custom_target(
     "${target}"
-    COMMAND "${CLANG_FORMAT_PATH}"
+    COMMAND "${CLANG_FORMAT_EXECUTABLE}"
       ${style_arg}
       ${inplace_arg}
       ${verbose_arg}

@@ -14,16 +14,17 @@
 # This limitation is a result of the ``CMAKE_EXPORT_COMPILE_COMMANDS`` not 
 # being present prior to this.
 #
-# This module defines the following variables::
+# This module defines the following variables:
 #
-#   ``CLANG_TIDY_PATH`` - Path to the ``clang-tidy`` executable, or 
-#                         ``NOTFOUND`` if it cannot be found
+#   ``CLANG_TIDY_EXECUTABLE`` 
+#     Path to the ``clang-tidy`` executable, or ``NOTFOUND`` if it cannot be 
+#     found.
 
 set(__FIND_ROOT_PATH_MODE_PROGRAM ${CMAKE_FIND_ROOT_PATH_MODE_PROGRAM})
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 
-find_program(CLANG_TIDY_PATH clang-tidy QUIET)
-mark_as_advanced(CLANG_TIDY_PATH)
+find_program(CLANG_TIDY_EXECUTABLE clang-tidy QUIET)
+mark_as_advanced(CLANG_TIDY_EXECUTABLE)
 
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM ${__FIND_ROOT_PATH_MODE_PROGRAM})
 set(__FIND_ROOT_PATH_MODE_PROGRAM)
@@ -65,7 +66,7 @@ endif()
 #   ``CLANG_TIDY_ARGS``
 #     Arguments to forward directly to ``clang-tidy``
 function(add_clang_tidy_target target)
-  if (NOT CLANG_TIDY_PATH)
+  if (NOT CLANG_TIDY_EXECUTABLE)
     message(FATAL_ERROR "add_clang_tidy_target: clang-tidy not found.")
   endif()
 
@@ -91,7 +92,7 @@ function(add_clang_tidy_target target)
 
   add_custom_target(
     "${target}"
-    COMMAND "${CLANG_TIDY_PATH}"
+    COMMAND "${CLANG_TIDY_EXECUTABLE}"
       ${sources}
       ${CLANG_TIDY_CLANG_TIDY_ARGS}
       -list-checks
@@ -138,16 +139,16 @@ function(enable_clang_tidy)
   endif()
 
   cmake_parse_arguments(
-    CLANG_TIDY        # Prefix
-    "REQUIRED"        # Option-args
-    ""                # Single-args
-    "LANGUAGES;ARGS"  # Multi-args
+    CLANG_TIDY                  # Prefix
+    "REQUIRED"                  # Option-args
+    ""                          # Single-args
+    "LANGUAGES;CLANG_TIDY_ARGS" # Multi-args
     ${ARGN}
   )
 
-  if (CLANG_TIDY_REQUIRED AND NOT CLANG_TIDY_PATH)
+  if (CLANG_TIDY_REQUIRED AND NOT CLANG_TIDY_EXECUTABLE)
     message(FATAL_ERROR "enable_clang_tidy REQUIRED: clang-tidy program not found")
-  elseif (NOT CLANG_TIDY_PATH)
+  elseif (NOT CLANG_TIDY_EXECUTABLE)
     return()
   endif()
 
@@ -156,7 +157,7 @@ function(enable_clang_tidy)
   endif()
 
   foreach (lang IN LISTS CLANG_TIDY_LANGUAGES)
-    set(CMAKE_${lang}_CLANG_TIDY "${CLANG_TIDY_PATH};${CLANG_TIDY_ARGS}")
+    set(CMAKE_${lang}_CLANG_TIDY "${CLANG_TIDY_EXECUTABLE};${CLANG_TIDY_CLANG_TIDY_ARGS}")
   endforeach()
 
   set(CMAKE_CLANG_TIDY_ENABLED True CACHE INTERNAL "")
@@ -191,20 +192,26 @@ endfunction()
 #     Arguments to forward directly to clang-tidy
 function(target_enable_clang_tidy target)
   if (NOT CMAKE_VERSION VERSION_GREATER 3.5)
-    message(FATAL_ERROR "enable_clang_tidy: built-in clang-tidy support only available in CMake 3.5 or above")
+    message(FATAL_ERROR 
+      "target_enable_clang_tidy:" 
+      "built-in clang-tidy support only available in CMake 3.5 or above"
+    )
   endif()
 
   cmake_parse_arguments(
-    CLANG_TIDY # Prefix 
-    "REQUIRED"        # Option-args
-    ""                # Single-args
-    "LANGUAGES;ARGS"  # Multi-args
+    CLANG_TIDY                  # Prefix
+    "REQUIRED"                  # Option-args
+    ""                          # Single-args
+    "LANGUAGES;CLANG_TIDY_ARGS" # Multi-args
     ${ARGN}
   )
 
-  if (CLANG_TIDY_REQUIRED AND NOT CLANG_TIDY_PATH)
-    message(FATAL_ERROR "enable_clang_tidy REQUIRED: clang-tidy program not found")
-  elseif (NOT CLANG_TIDY_PATH)
+  if (CLANG_TIDY_REQUIRED AND NOT CLANG_TIDY_EXECUTABLE)
+    message(FATAL_ERROR 
+      "target_enable_clang_tidy REQUIRED:" 
+      "clang-tidy program not found"
+    )
+  elseif (NOT CLANG_TIDY_EXECUTABLE)
     return()
   endif()
 
@@ -216,7 +223,7 @@ function(target_enable_clang_tidy target)
     set_target_properties(
       ${target} 
       PROPERTY ${lang}_CLANG_TIDY 
-      "${CLANG_TIDY_PATH};${CLANG_TIDY_ARGS}"
+      "${CLANG_TIDY_EXECUTABLE};${CLANG_TIDY_CLANG_TIDY_ARGS}"
     )
   endforeach()
 endfunction()
