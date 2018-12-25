@@ -1,6 +1,6 @@
+# Copyright (c) Matthew Rodusek
 # Distributed under the OSI-approved MIT License. See accompanying
 # file LICENSE.txt or https://opensource.org/licenses/MIT for details.
-# Original Author: Matthew Rodusek, 2018
 
 #.rst:
 # IncludeGuard
