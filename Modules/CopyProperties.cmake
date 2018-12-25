@@ -138,13 +138,13 @@ function(copy_target_properties)
 endfunction()
 
 #.rst:
-# .. command:: copy_tests_properties:
+# .. command:: copy_test_properties:
 #
-# Copies properties from a source tests to a given destination tests
+# Copies properties from a source test to a given destination test
 #
 # .. code-block:: cmake
 #
-#   copy_tests_properties(
+#   copy_test_properties(
 #     SOURCE <source>
 #     DESTINATION <destination>
 #     PROPERTIES prop1 prop2 ...
@@ -152,7 +152,7 @@ endfunction()
 #
 # Copies all properties specified by ``prop1``, ``prop2``, ... from the source
 # test ``<source>`` to the destination test ``<destination>``.
-function(copy_tests_properties)
+function(copy_test_properties)
 
   cmake_parse_arguments(
     "COPY_PROPERTIES"    # Prefix
@@ -164,17 +164,17 @@ function(copy_tests_properties)
 
   if (NOT COPY_PROPERTIES_SOURCE)
     message(FATAL_ERROR 
-      "copy_tests_properties SOURCE: source tests not specified"
+      "copy_test_properties SOURCE: source test not specified"
     )
   endif()
   if (NOT COPY_PROPERTIES_DESTINATION)
     message(FATAL_ERROR 
-      "copy_tests_properties DESTINATION: destination tests not specified"
+      "copy_test_properties DESTINATION: destination test not specified"
     )
   endif()
   if (NOT COPY_PROPERTIES_PROPERTIES)
     message(FATAL_ERROR 
-      "copy_tests_properties PROPERTIES: properties not specified"
+      "copy_test_properties PROPERTIES: properties not specified"
     )
   endif()
 
@@ -187,13 +187,13 @@ function(copy_tests_properties)
 endfunction()
 
 #.rst:
-# .. command:: copy_source_files_properties:
+# .. command:: copy_source_file_properties:
 #
-# Copies properties from a source tests to a given destination tests
+# Copies properties from a source file to a given destination file
 #
 # .. code-block:: cmake
 #
-#   copy_source_files_properties(
+#   copy_source_file_properties(
 #     SOURCE <source>
 #     DESTINATION <destination>
 #     PROPERTIES prop1 prop2 ...
@@ -201,7 +201,7 @@ endfunction()
 #
 # Copies all properties specified by ``prop1``, ``prop2``, ... from the source
 # file ``<source>`` to the destination file ``<destination>``.
-function(copy_source_files_properties)
+function(copy_source_file_properties)
 
   cmake_parse_arguments(
     "COPY_PROPERTIES"    # Prefix
@@ -213,17 +213,17 @@ function(copy_source_files_properties)
 
   if (NOT COPY_PROPERTIES_SOURCE)
     message(FATAL_ERROR 
-      "copy_source_files_properties SOURCE: source tests not specified"
+      "copy_source_file_properties SOURCE: source file not specified"
     )
   endif()
   if (NOT COPY_PROPERTIES_DESTINATION)
     message(FATAL_ERROR 
-      "copy_source_files_properties DESTINATION: destination tests not specified"
+      "copy_source_file_properties DESTINATION: destination file not specified"
     )
   endif()
   if (NOT COPY_PROPERTIES_PROPERTIES)
     message(FATAL_ERROR 
-      "copy_source_files_properties PROPERTIES: properties not specified"
+      "copy_source_file_properties PROPERTIES: properties not specified"
     )
   endif()
 

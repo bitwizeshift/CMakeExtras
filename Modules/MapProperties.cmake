@@ -189,13 +189,13 @@ function(map_target_properties)
 endfunction()
 
 #.rst:
-# .. command:: map_tests_properties:
+# .. command:: map_test_properties:
 #
 # Maps properties from a source test to a given destination test
 #
 # .. code-block:: cmake
 #
-#   map_tests_properties(
+#   map_test_properties(
 #     SOURCE <source>
 #     DESTINATION <destination>
 #     SOURCE_PROPERTIES source_prop1 source_prop2 ...
@@ -205,7 +205,7 @@ endfunction()
 # Maps all properties specified by ``source_prop1``, 
 # ``source_prop2``, ... from the source test ``<source>`` to the 
 # destination test ``<destination>``'s ``dest_prop1``, ``dest_prop2`, ....
-function(map_tests_properties)
+function(map_test_properties)
 
   set(single_args SOURCE DESTINATION)
   set(multi_args SOURCE_PROPERTIES DESTINATION_PROPERTIES)
@@ -220,22 +220,22 @@ function(map_tests_properties)
 
   if (NOT MAP_PROPERTIES_SOURCE)
     message(FATAL_ERROR 
-      "map_tests_properties SOURCE: source test not specified"
+      "map_test_properties SOURCE: source test not specified"
     )
   endif()
   if (NOT MAP_PROPERTIES_DESTINATION)
     message(FATAL_ERROR 
-      "map_tests_properties DESTINATION: destination test not specified"
+      "map_test_properties DESTINATION: destination test not specified"
     )
   endif()
   if (NOT MAP_PROPERTIES_SOURCE_PROPERTIES)
     message(FATAL_ERROR 
-      "map_tests_properties SOURCE_PROPERTIES: properties not specified"
+      "map_test_properties SOURCE_PROPERTIES: properties not specified"
     )
   endif()
   if (NOT MAP_PROPERTIES_DESTINATION_PROPERTIES)
     message(FATAL_ERROR 
-      "map_tests_properties DESTINATION_PROPERTIES: properties not specified"
+      "map_test_properties DESTINATION_PROPERTIES: properties not specified"
     )
   endif()
 
@@ -249,13 +249,13 @@ function(map_tests_properties)
 endfunction()
 
 #.rst:
-# .. command:: map_source_files_properties:
+# .. command:: map_source_file_properties:
 #
-# Maps properties from a source test to a given destination test
+# Maps properties from a source file to a given destination file
 #
 # .. code-block:: cmake
 #
-#   map_source_files_properties(
+#   map_source_file_properties(
 #     SOURCE <source>
 #     DESTINATION <destination>
 #     SOURCE_PROPERTIES source_prop1 source_prop2 ...
@@ -266,7 +266,7 @@ endfunction()
 # ``source_prop2``, ... from the source file ``<source>`` to the 
 # destination source file ``<destination>``'s ``dest_prop1``, 
 # ``dest_prop2`, ....
-function(map_source_files_properties)
+function(map_source_file_properties)
 
   set(single_args SOURCE DESTINATION)
   set(multi_args SOURCE_PROPERTIES DESTINATION_PROPERTIES)
@@ -281,22 +281,22 @@ function(map_source_files_properties)
 
   if (NOT MAP_PROPERTIES_SOURCE)
     message(FATAL_ERROR 
-      "map_source_files_properties SOURCE: source source file not specified"
+      "map_source_file_properties SOURCE: source source file not specified"
     )
   endif()
   if (NOT MAP_PROPERTIES_DESTINATION)
     message(FATAL_ERROR 
-      "map_source_files_properties DESTINATION: destination source file not specified"
+      "map_source_file_properties DESTINATION: destination source file not specified"
     )
   endif()
   if (NOT MAP_PROPERTIES_SOURCE_PROPERTIES)
     message(FATAL_ERROR 
-      "map_source_files_properties SOURCE_PROPERTIES: properties not specified"
+      "map_source_file_properties SOURCE_PROPERTIES: properties not specified"
     )
   endif()
   if (NOT MAP_PROPERTIES_DESTINATION_PROPERTIES)
     message(FATAL_ERROR 
-      "map_source_files_properties DESTINATION_PROPERTIES: properties not specified"
+      "map_source_file_properties DESTINATION_PROPERTIES: properties not specified"
     )
   endif()
 
