@@ -28,9 +28,9 @@ function(add_build_configuration configuration)
       "${CMAKE_CONFIGURATION_TYPES};${configuration}" 
       CACHE STRING "The supported configurations" FORCE
     )
-  else()
+  else ()
     set_property(CACHE CMAKE_BUILD_TYPE APPEND PROPERTY STRINGS "${configuration}")
-  endif()
+  endif ()
 endfunction()
 
 #.rst:
@@ -52,9 +52,9 @@ function(set_build_configurations)
       "${ARGN}" 
       CACHE STRING "The supported configurations" FORCE
     )
-  else()
+  else ()
     set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "${ARGN}")
-  endif()
+  endif ()
 endfunction()
 
 #.rst:
@@ -79,14 +79,14 @@ function(get_build_configurations result_var)
   )
   if (CMAKE_CONFIGURATION_TYPES)
     set("${result_var}" "${CMAKE_CONFIGURATION_TYPES}" PARENT_SCOPE)
-  else()
+  else ()
     get_property(build_types CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS)
     if (NOT build_types)
       set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ${__default_configurations})
       set(build_types ${__default_configurations})
-    endif()
+    endif ()
     set("${result_var}" "${build_types}" PARENT_SCOPE)
-  endif()
+  endif ()
 endfunction()
 
 #.rst:
@@ -110,7 +110,7 @@ function(set_default_build_configuration configuration)
       "${configuration}" 
       CACHE STRING "The configuration to be built" FORCE
     )
-  endif()
+  endif ()
 endfunction()
 
 #.rst:
@@ -129,10 +129,10 @@ function(reset_build_configurations)
       ${__default_configurations} 
       CACHE STRING "The configurations to be built" FORCE
     )
-  else()
+  else ()
     # Set the possible values of build type for cmake-gui
     set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ${__default_configurations})
-  endif()
+  endif ()
 endfunction()
 
 #.rst:
@@ -151,19 +151,19 @@ function(ensure_valid_build_configuration)
 
     set(valid FALSE)
     string(TOUPPER "${CMAKE_BUILD_TYPE}" build_type)
-    foreach(build_configuration IN LISTS build_configurations )
+    foreach (build_configuration IN LISTS build_configurations )
       string(TOUPPER "${build_configuration}" build_configuration )
       if (build_type STREQUAL build_configuration)
         set(valid TRUE)
         break()
-      endif()
-    endforeach()
+      endif ()
+    endforeach ()
     if (NOT valid)
       message(FATAL_ERROR 
         "ensure_valid_build_configuration:" 
         "Invalid CMAKE_BUILD_TYPE specified '${CMAKE_BUILD_TYPE}'." 
         "Valid types are '${build_configurations}'"
       )
-    endif()
-  endif()
+    endif ()
+  endif ()
 endfunction()

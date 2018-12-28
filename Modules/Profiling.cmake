@@ -11,7 +11,7 @@
 
 if (CMAKE_VERSION VERSION_LESS 3.5.0)
   include(CMakeParseArguments)
-endif()
+endif ()
 
 function(_get_profile_flags result_var)
   if (CMAKE_C_COMPILER_ID MATCHES "Clang" OR 
@@ -19,12 +19,12 @@ function(_get_profile_flags result_var)
       CMAKE_C_COMPILER_ID MATCHES "GNU" OR 
       CMAKE_CXX_COMPILER_ID MATCHES "GNU")
     set(${result_var} "-p" PARENT_SCOPE)
-  else()
+  else ()
     message(WARNING 
       "Unknown compiler '${CMAKE_CXX_COMPILER_ID}'."
       "Unable to enable profiling."
     )
-  endif()
+  endif ()
 endfunction()
 
 #.rst:

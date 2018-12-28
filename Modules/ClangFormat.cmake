@@ -25,7 +25,7 @@ set(__FIND_ROOT_PATH_MODE_PROGRAM)
 
 if (CMAKE_VERSION VERSION_LESS 3.5.0)
   include(CMakeParseArguments)
-endif()
+endif ()
 
 #.rst:
 # .. command:: add_clang_format_target
@@ -71,7 +71,7 @@ endif()
 function(add_clang_format_target target)
   if (NOT CLANG_FORMAT_EXECUTABLE)
     message(FATAL_ERROR "add_clang_format_target: clang-format not found.")
-  endif()
+  endif ()
 
   cmake_parse_arguments(
     CLANG_FORMAT      # Prefix
@@ -84,30 +84,30 @@ function(add_clang_format_target target)
   set(sources)
   foreach (source_target IN LISTS CLANG_FORMAT_TARGETS)
     list(APPEND sources "$<TARGET_PROPERTY:${source_target},SOURCES>")
-  endforeach()
+  endforeach ()
   foreach (source IN LISTS CLANG_FORMAT_SOURCES)
     list(APPEND sources "${source}")
-  endforeach()
+  endforeach ()
 
   if (NOT sources)
     message(FATAL_ERROR "add_clang_format_target: No sources specified")
-  endforeach()
+  endforeach ()
 
   if (CLANG_FORMAT_STYLE)
     set(style_arg "-style=${CLANG_FORMAT_STYLE}")
-  else()
+  else ()
     set(style_arg "-style=file")
-  endif()
+  endif ()
 
   set(inplace_arg)
   if (CLANG_FORMAT_INPLACE)
     set(inplace_arg "-i")
-  endif()
+  endif ()
   
   set(verbose_arg)
   if (CLANG_FORMAT_VERBOSE)
     set(verbose_arg "-verbose")
-  endif()
+  endif ()
 
   add_custom_target(
     "${target}"
@@ -122,6 +122,6 @@ function(add_clang_format_target target)
   # Add dependencies to each target
   foreach (source_target IN LISTS CLANG_FORMAT_TARGETS)
     add_dependencies("${target}" ${source_target})
-  endforeach()
+  endforeach ()
 
 endfunction()

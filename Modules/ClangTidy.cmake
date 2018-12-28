@@ -33,12 +33,12 @@ set(__FIND_ROOT_PATH_MODE_PROGRAM)
 # Only added in 3.5.0
 if (CMAKE_VERSION VERSION_LESS 3.5.0)
   message(FATAL_ERROR "ClangTidy: Minimum cmake version 3.5 not satisfied (CMake ${CMAKE_VERSION})")  
-endif()
+endif ()
 set(CMAKE_EXPORT_COMPILE_COMMANDS True CACHE INTERNAL "")
 
 if (CMAKE_VERSION VERSION_LESS 3.5.0)
   include(CMakeParseArguments)
-endif()
+endif ()
 
 #.rst:
 # .. command:: add_clang_tidy_target
@@ -69,7 +69,7 @@ endif()
 function(add_clang_tidy_target target)
   if (NOT CLANG_TIDY_EXECUTABLE)
     message(FATAL_ERROR "add_clang_tidy_target: clang-tidy not found.")
-  endif()
+  endif ()
 
   cmake_parse_arguments(
     CLANG_TIDY # Prefix
@@ -82,14 +82,14 @@ function(add_clang_tidy_target target)
   set(sources)
   foreach (source_target IN LISTS CLANG_TIDY_TARGETS)
     list(APPEND sources $<TARGET_PROPERTY:${source_target},SOURCES>)
-  endforeach()
+  endforeach ()
   foreach (source IN LISTS CLANG_TIDY_SOURCES)
     list(APPEND sources "${source}")
-  endforeach()
+  endforeach ()
 
   if (NOT sources)
     message(FATAL_ERROR "add_clang_tidy_target: No sources specified")
-  endforeach()
+  endforeach ()
 
   add_custom_target(
     "${target}"
@@ -104,7 +104,7 @@ function(add_clang_tidy_target target)
   # Add dependencies to each target
   foreach (source_target IN LISTS CLANG_TIDY_TARGETS)
     add_dependencies("${target}" ${source_target})
-  endforeach()
+  endforeach ()
 
 endfunction()
 
@@ -137,7 +137,7 @@ endfunction()
 function(enable_clang_tidy)
   if (NOT CMAKE_VERSION VERSION_GREATER 3.5)
     message(FATAL_ERROR "enable_clang_tidy: built-in clang-tidy support only available in CMake 3.5 or above")
-  endif()
+  endif ()
 
   cmake_parse_arguments(
     CLANG_TIDY                  # Prefix
@@ -151,15 +151,15 @@ function(enable_clang_tidy)
     message(FATAL_ERROR "enable_clang_tidy REQUIRED: clang-tidy program not found")
   elseif (NOT CLANG_TIDY_EXECUTABLE)
     return()
-  endif()
+  endif ()
 
   if (NOT CLANG_TIDY_LANGUAGES)
     set(CLANG_TIDY_LANGUAGES CXX) # default to C++ support
-  endif()
+  endif ()
 
   foreach (lang IN LISTS CLANG_TIDY_LANGUAGES)
     set(CMAKE_${lang}_CLANG_TIDY "${CLANG_TIDY_EXECUTABLE};${CLANG_TIDY_CLANG_TIDY_ARGS}")
-  endforeach()
+  endforeach ()
 
   set(CMAKE_CLANG_TIDY_ENABLED True CACHE INTERNAL "")
 endfunction()
@@ -197,7 +197,7 @@ function(target_enable_clang_tidy target)
       "target_enable_clang_tidy:" 
       "built-in clang-tidy support only available in CMake 3.5 or above"
     )
-  endif()
+  endif ()
 
   cmake_parse_arguments(
     CLANG_TIDY                  # Prefix
@@ -214,11 +214,11 @@ function(target_enable_clang_tidy target)
     )
   elseif (NOT CLANG_TIDY_EXECUTABLE)
     return()
-  endif()
+  endif ()
 
   if (NOT CLANG_TIDY_LANGUAGES)
     set(CLANG_TIDY_LANGUAGES CXX) # default to C++ support
-  endif()
+  endif ()
 
   foreach (lang IN LISTS CLANG_TIDY_LANGUAGES )
     set_target_properties(
@@ -226,5 +226,5 @@ function(target_enable_clang_tidy target)
       PROPERTY ${lang}_CLANG_TIDY 
       "${CLANG_TIDY_EXECUTABLE};${CLANG_TIDY_CLANG_TIDY_ARGS}"
     )
-  endforeach()
+  endforeach ()
 endfunction()

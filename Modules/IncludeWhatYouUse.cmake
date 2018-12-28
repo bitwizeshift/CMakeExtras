@@ -36,12 +36,12 @@ if (CMAKE_VERSION VERSION_LESS 3.3.0)
     "IncludeWhatYouUse: Minimum cmake version 3.3 not satisfied" 
     "(CMake ${CMAKE_VERSION})"
   )  
-endif()
+endif ()
 set(CMAKE_EXPORT_COMPILE_COMMANDS True CACHE INTERNAL "")
 
 if (CMAKE_VERSION VERSION_LESS 3.5.0)
   include(CMakeParseArguments)
-endif()
+endif ()
 
 #.rst:
 # .. command:: add_iwyu_target
@@ -72,7 +72,7 @@ endif()
 function(add_iwyu_target target)
   if (NOT INCLUDE_WHAT_YOU_USE_EXECUTABLE)
     message(FATAL_ERROR "add_iwyu_target: include-what-you-use not found.")
-  endif()
+  endif ()
 
   cmake_parse_arguments(
     INCLUDE_WHAT_YOU_USE # Prefix
@@ -85,14 +85,14 @@ function(add_iwyu_target target)
   set(sources)
   foreach (source_target IN LISTS INCLUDE_WHAT_YOU_USE_TARGETS)
     list(APPEND sources $<TARGET_PROPERTY:${source_target},SOURCES>)
-  endforeach()
+  endforeach ()
   foreach (source IN LISTS INCLUDE_WHAT_YOU_USE_SOURCES)
     list(APPEND sources "${source}")
-  endforeach()
+  endforeach ()
 
   if (NOT sources)
     message(FATAL_ERROR "add_iwyu_target: No sources specified")
-  endforeach()
+  endforeach ()
 
   add_custom_target(
     "${target}"
@@ -105,7 +105,7 @@ function(add_iwyu_target target)
   # Add dependencies to each target
   foreach (source_target IN LISTS INCLUDE_WHAT_YOU_USE_TARGETS)
     add_dependencies("${target}" ${source_target})
-  endforeach()
+  endforeach ()
 
 endfunction()
 
@@ -138,7 +138,7 @@ endfunction()
 function(enable_iwyu)
   if (NOT CMAKE_VERSION VERSION_GREATER 3.3)
     message(FATAL_ERROR "enable_iwyu: built-in include-what-you-use support only available in CMake 3.5 or above")
-  endif()
+  endif ()
 
   cmake_parse_arguments(
     INCLUDE_WHAT_YOU_USE   # Prefix
@@ -152,15 +152,15 @@ function(enable_iwyu)
     message(FATAL_ERROR "enable_iwyu REQUIRED: include-what-you-use program not found")
   elseif (NOT INCLUDE_WHAT_YOU_USE_EXECUTABLE)
     return()
-  endif()
+  endif ()
 
   if (NOT INCLUDE_WHAT_YOU_USE_LANGUAGES)
     set(INCLUDE_WHAT_YOU_USE_LANGUAGES CXX) # default to C++ support
-  endif()
+  endif ()
 
   foreach (lang IN LISTS INCLUDE_WHAT_YOU_USE_LANGUAGES)
     set(CMAKE_${lang}_INCLUDE_WHAT_YOU_USE "${INCLUDE_WHAT_YOU_USE_EXECUTABLE};${INCLUDE_WHAT_YOU_USE_IWYU_ARGS}")
-  endforeach()
+  endforeach ()
 
   set(CMAKE_INCLUDE_WHAT_YOU_USE_ENABLED True CACHE INTERNAL "")
 endfunction()
@@ -195,7 +195,7 @@ endfunction()
 function(target_enable_iwyu target)
   if (NOT CMAKE_VERSION VERSION_GREATER 3.3)
     message(FATAL_ERROR "enable_iwyu: built-in include-what-you-use support only available in CMake 3.5 or above")
-  endif()
+  endif ()
 
   cmake_parse_arguments(
     INCLUDE_WHAT_YOU_USE   # Prefix 
@@ -209,11 +209,11 @@ function(target_enable_iwyu target)
     message(FATAL_ERROR "enable_iwyu REQUIRED: include-what-you-use program not found")
   elseif (NOT INCLUDE_WHAT_YOU_USE_EXECUTABLE)
     return()
-  endif()
+  endif ()
 
   if (NOT INCLUDE_WHAT_YOU_USE_LANGUAGES)
     set(INCLUDE_WHAT_YOU_USE_LANGUAGES CXX) # default to C++ support
-  endif()
+  endif ()
 
   foreach (lang IN LISTS INCLUDE_WHAT_YOU_USE_LANGUAGES )
     set_target_properties(
@@ -221,5 +221,5 @@ function(target_enable_iwyu target)
       PROPERTY ${lang}_INCLUDE_WHAT_YOU_USE 
       "${INCLUDE_WHAT_YOU_USE_EXECUTABLE};${INCLUDE_WHAT_YOU_USE_IWYU_ARGS}"
     )
-  endforeach()
+  endforeach ()
 endfunction()

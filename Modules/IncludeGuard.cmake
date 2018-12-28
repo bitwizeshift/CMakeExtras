@@ -62,15 +62,15 @@ if (CMAKE_VERSION VERSION_LESS 3.10)
   #
   # .. code-block:: cmake
   #
-  #   if(__CURRENT_FILE_VAR__)
+  #   if (__CURRENT_FILE_VAR__)
   #     return()
-  #   endif()
+  #   endif ()
   #   set(__CURRENT_FILE_VAR__ TRUE)
   macro(include_guard)
 
     if (ARGC GREATER 1)
       message(FATAL_ERROR "include_guard: Too many arguments (${ARGC}, expected at most 1)")
-    endif()
+    endif ()
 
     set(__GUARD__ "GUARD_${CMAKE_CURRENT_LIST_FILE}")
 
@@ -84,7 +84,7 @@ if (CMAKE_VERSION VERSION_LESS 3.10)
         if (__CURRENT_PROPERTY_VALUE__)
           unset(__CURRENT_PROPERTY_VALUE__)
           return()
-        endif()
+        endif ()
         set_property(
           DIRECTORY "${CMAKE_CURRENT_LIST_DIR}"
           PROPERTY "${__GUARD__}" 
@@ -99,21 +99,21 @@ if (CMAKE_VERSION VERSION_LESS 3.10)
         if (__CURRENT_PROPERTY_VALUE__)
           unset(__CURRENT_PROPERTY_VALUE__)
           return()
-        endif()
+        endif ()
         set_property(
           GLOBAL
           PROPERTY "${__GUARD__}" 
           True
         )
-      else()
+      else ()
         message(FATAL_ERROR "include_guard: Unknown option '${ARGV1}'.")
-      endif()
+      endif ()
     else ()
       if (DEFINED "${__GUARD__}")
         return()
-      endif()
+      endif ()
       set("${__GUARD__}" TRUE)
-    endiF()
+    endif ()
   endmacro()
 
-endif()
+endif ()

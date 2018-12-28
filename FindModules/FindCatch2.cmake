@@ -40,7 +40,7 @@ if (NOT TARGET Catch2::Catch2 AND Catch2_INCLUDE_DIRS)
   set_target_properties(Catch2::Catch2 PROPERTIES
     INTERFACE_INCLUDE_DIRECTORIES ${Catch2_INCLUDE_DIRS}
   )
-endif()
+endif ()
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(Catch2 DEFAULT_MSG Catch2_INCLUDE_DIR)

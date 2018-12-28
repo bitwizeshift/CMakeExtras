@@ -39,7 +39,7 @@ if (NOT TARGET GSL::GSL AND GSL_INCLUDE_DIRS)
     PROPERTIES
       INTERFACE_INCLUDE_DIRECTORIES ${GSL_INCLUDE_DIRS}
   )
-endif()
+endif ()
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(GSL DEFAULT_MSG GSL_INCLUDE_DIR)

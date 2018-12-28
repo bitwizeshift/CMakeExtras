@@ -10,9 +10,9 @@
 # scripts. This module should realistically never be used in production,
 # as it is intended to help diagnose issues in authored CMake scripts.
 
-if( ${CMAKE_VERSION} VERSION_LESS 3.5.0 )
+if (CMAKE_VERSION VERSION_LESS 3.5.0)
   include(CMakeParseArguments)
-endif()
+endif ()
 
 #.rst:
 # .. command:: cmake_debug_dump_variables
@@ -37,18 +37,18 @@ function(cmake_debug_dump_variables)
   )
   if (CMAKE_DEBUG_UNPARSED_ARGUMENTS)
     message(FATAL_ERROR "cmake_debug_dump_variables: Unknown arguments '${CMAKE_DEBUG_UNPARSED_ARGUMENTS}'")
-  endif()
+  endif ()
 
   get_property(variable GLOBAL PROPERTY VARIABLES) 
   foreach (variable IN LISTS variables)
     if (CMAKE_DEBUG_MATCHING)
       if (variable MATCHES "${CMAKE_DEBUG_MATCHING}")
         message(STATUS "${variable} = '${${variable}}'")
-      endif()
-    else()
+      endif ()
+    else ()
       message(STATUS "${variable} = '${${variable}}'")
-    endif()
-  endforeach()
+    endif ()
+  endforeach ()
 endfunction()
 
 
@@ -79,18 +79,18 @@ function(cmake_debug_watch_variables)
   )
   if (CMAKE_DEBUG_UNPARSED_ARGUMENTS)
     message(FATAL_ERROR "cmake_debug_watch_variables: Unknown arguments '${CMAKE_DEBUG_UNPARSED_ARGUMENTS}'")
-  endif()
+  endif ()
 
   get_property(variable GLOBAL PROPERTY VARIABLES) 
   foreach (variable IN LISTS variables)
     if (CMAKE_DEBUG_MATCHING)
       if (variable MATCHES "${CMAKE_DEBUG_MATCHING}")
         variable_watch("${variable}" _cmake_debug_watch_variable_callback)
-      endif()
-    else()
+      endif ()
+    else ()
       variable_watch("${variable}" _cmake_debug_watch_variable_callback)
-    endif()
-  endforeach()
+    endif ()
+  endforeach ()
 endfunction()
 
 #.rst:

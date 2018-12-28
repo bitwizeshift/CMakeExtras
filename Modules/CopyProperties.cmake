@@ -16,7 +16,7 @@
 
 if (CMAKE_VERSION VERSION_LESS 3.5.0)
   include(CMakeParseArguments)
-endif()
+endif ()
 
 #.rst:
 # .. command:: copy_properties:
@@ -69,23 +69,23 @@ function(copy_properties)
     message(FATAL_ERROR 
       "copy_properties SOURCE: source not specified"
     )
-  endif()
+  endif ()
   if (NOT COPY_PROPERTIES_DESTINATION)
     message(FATAL_ERROR 
       "copy_properties DESTINATION: destination not specified"
     )
-  endif()
+  endif ()
   if (NOT COPY_PROPERTIES_PROPERTIES)
     message(FATAL_ERROR 
       "copy_properties PROPERTIES: properties not specified"
     )
-  endif()
+  endif ()
 
   # Copy each property over
   foreach (property IN LISTS COPY_PROPERTIES_PROPERTIES)
     get_property(value ${COPY_PROPERTIES_SOURCE} PROPERTY "${property}")
     set_property(${COPY_PROPERTIES_DESTINATION} PROPERTY "${property}" "${value}")
-  endforeach()
+  endforeach ()
 
 endfunction()
 
@@ -118,17 +118,17 @@ function(copy_target_properties)
     message(FATAL_ERROR 
       "copy_target_properties SOURCE: source target not specified"
     )
-  endif()
+  endif ()
   if (NOT COPY_PROPERTIES_DESTINATION)
     message(FATAL_ERROR 
       "copy_target_properties DESTINATION: destination target not specified"
     )
-  endif()
+  endif ()
   if (NOT COPY_PROPERTIES_PROPERTIES)
     message(FATAL_ERROR 
       "copy_target_properties PROPERTIES: properties not specified"
     )
-  endif()
+  endif ()
 
   copy_properties(
     SOURCE TARGET "${COPY_PROPERTIES_SOURCE}"
@@ -167,17 +167,17 @@ function(copy_test_properties)
     message(FATAL_ERROR 
       "copy_test_properties SOURCE: source test not specified"
     )
-  endif()
+  endif ()
   if (NOT COPY_PROPERTIES_DESTINATION)
     message(FATAL_ERROR 
       "copy_test_properties DESTINATION: destination test not specified"
     )
-  endif()
+  endif ()
   if (NOT COPY_PROPERTIES_PROPERTIES)
     message(FATAL_ERROR 
       "copy_test_properties PROPERTIES: properties not specified"
     )
-  endif()
+  endif ()
 
   copy_properties(
     SOURCE TEST "${COPY_PROPERTIES_SOURCE}"
@@ -216,17 +216,17 @@ function(copy_source_file_properties)
     message(FATAL_ERROR 
       "copy_source_file_properties SOURCE: source file not specified"
     )
-  endif()
+  endif ()
   if (NOT COPY_PROPERTIES_DESTINATION)
     message(FATAL_ERROR 
       "copy_source_file_properties DESTINATION: destination file not specified"
     )
-  endif()
+  endif ()
   if (NOT COPY_PROPERTIES_PROPERTIES)
     message(FATAL_ERROR 
       "copy_source_file_properties PROPERTIES: properties not specified"
     )
-  endif()
+  endif ()
 
   copy_properties(
     SOURCE SOURCE "${COPY_PROPERTIES_SOURCE}"
@@ -265,12 +265,12 @@ function(copy_directory_properties)
     message(FATAL_ERROR 
       "copy_directory_properties PROPERTIES: properties not specified"
     )
-  endif()
+  endif ()
   if (NOT COPY_PROPERTIES_SOURCE AND NOT COPY_PROPERTIES_DESTINATION)
     message(FATAL_ERROR 
       "copy_directory_properties: both SOURCE and DESTINATION not specified"
     )
-  endif()
+  endif ()
 
   # Args are set up independently here so that the 'SOURCE' and 'DESTINATION' value can
   # retain any spaces when passed to 'copy_properties' below. This is necessary since 
@@ -278,12 +278,12 @@ function(copy_directory_properties)
   set(source_arg DIRECTORY)
   if (COPY_PROPERTIES_SOURCE)
     set(source_arg DIRECTORY "${COPY_PROPERTIES_SOURCE}")
-  endif()
+  endif ()
 
   set(destination_arg DIRECTORY)
   if (COPY_PROPERTIES_DESTINATION)
     set(destination_arg DIRECTORY "${COPY_PROPERTIES_DESTINATION}")
-  endif()
+  endif ()
 
   copy_properties(
     SOURCE "${source_arg}"

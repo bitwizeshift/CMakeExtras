@@ -14,7 +14,7 @@
 
 if (CMAKE_VERSION VERSION_LESS 3.5.0)
   include(CMakeParseArguments)
-endif()
+endif ()
 
 #.rst:
 # .. command:: map_properties:
@@ -86,22 +86,22 @@ function(map_properties)
     message(FATAL_ERROR 
       "map_properties SOURCE: source not specified"
     )
-  endif()
+  endif ()
   if (NOT MAP_PROPERTIES_DESTINATION)
     message(FATAL_ERROR 
       "map_properties DESTINATION: destination not specified"
     )
-  endif()
+  endif ()
   if (NOT MAP_PROPERTIES_SOURCE_PROPERTIES)
     message(FATAL_ERROR 
       "map_properties SOURCE_PROPERTIES: properties not specified"
     )
-  endif()
+  endif ()
   if (NOT MAP_PROPERTIES_DESTINATION_PROPERTIES)
     message(FATAL_ERROR 
       "map_properties DESTINATION_PROPERTIES: properties not specified"
     )
-  endif()
+  endif ()
 
   list(LENGTH MAP_PROPERTIES_SOURCE_PROPERTIES source_length)
   list(LENGTH MAP_PROPERTIES_DESTINATION_PROPERTIES dest_length)
@@ -111,13 +111,13 @@ function(map_properties)
       "map_properties SOURCE_PROPERTIES: More source-properties than"
       "destination properties specified"
     )
-  endif()
+  endif ()
   if (source_length LESS dest_length)
     message(FATAL_ERROR
       "map_properties DESTINATION_PROPERTIES: More destination-properties"
       "than source properties specified"
     )
-  endif()
+  endif ()
   set(length ${dest_length})
 
   foreach (index RANGE 0 ${length})
@@ -126,7 +126,7 @@ function(map_properties)
 
     get_property(value ${MAP_PROPERTIES_SOURCE} PROPERTY "${source_property}")
     set_property(${MAP_PROPERTIES_DESTINATION} PROPERTY "${dest_property}" "${value}")
-  endforeach()
+  endforeach ()
 endfunction()
 
 #.rst:
@@ -163,22 +163,22 @@ function(map_target_properties)
     message(FATAL_ERROR 
       "map_target_properties SOURCE: source target not specified"
     )
-  endif()
+  endif ()
   if (NOT MAP_PROPERTIES_DESTINATION)
     message(FATAL_ERROR 
       "map_target_properties DESTINATION: destination target not specified"
     )
-  endif()
+  endif ()
   if (NOT MAP_PROPERTIES_SOURCE_PROPERTIES)
     message(FATAL_ERROR 
       "map_target_properties SOURCE_PROPERTIES: properties not specified"
     )
-  endif()
+  endif ()
   if (NOT MAP_PROPERTIES_DESTINATION_PROPERTIES)
     message(FATAL_ERROR 
       "map_target_properties DESTINATION_PROPERTIES: properties not specified"
     )
-  endif()
+  endif ()
 
   map_properties(
     SOURCE TARGET "${MAP_PROPERTIES_SOURCE}"
@@ -223,22 +223,22 @@ function(map_test_properties)
     message(FATAL_ERROR 
       "map_test_properties SOURCE: source test not specified"
     )
-  endif()
+  endif ()
   if (NOT MAP_PROPERTIES_DESTINATION)
     message(FATAL_ERROR 
       "map_test_properties DESTINATION: destination test not specified"
     )
-  endif()
+  endif ()
   if (NOT MAP_PROPERTIES_SOURCE_PROPERTIES)
     message(FATAL_ERROR 
       "map_test_properties SOURCE_PROPERTIES: properties not specified"
     )
-  endif()
+  endif ()
   if (NOT MAP_PROPERTIES_DESTINATION_PROPERTIES)
     message(FATAL_ERROR 
       "map_test_properties DESTINATION_PROPERTIES: properties not specified"
     )
-  endif()
+  endif ()
 
   map_properties(
     SOURCE TEST "${MAP_PROPERTIES_SOURCE}"
@@ -284,22 +284,22 @@ function(map_source_file_properties)
     message(FATAL_ERROR 
       "map_source_file_properties SOURCE: source source file not specified"
     )
-  endif()
+  endif ()
   if (NOT MAP_PROPERTIES_DESTINATION)
     message(FATAL_ERROR 
       "map_source_file_properties DESTINATION: destination source file not specified"
     )
-  endif()
+  endif ()
   if (NOT MAP_PROPERTIES_SOURCE_PROPERTIES)
     message(FATAL_ERROR 
       "map_source_file_properties SOURCE_PROPERTIES: properties not specified"
     )
-  endif()
+  endif ()
   if (NOT MAP_PROPERTIES_DESTINATION_PROPERTIES)
     message(FATAL_ERROR 
       "map_source_file_properties DESTINATION_PROPERTIES: properties not specified"
     )
-  endif()
+  endif ()
 
   map_properties(
     SOURCE SOURCE "${MAP_PROPERTIES_SOURCE}"
@@ -350,17 +350,17 @@ function(map_directory_properties)
     message(FATAL_ERROR 
       "map_directory_properties: both SOURCE and DESTINATION not specified"
     )
-  endif()
+  endif ()
   if (NOT MAP_PROPERTIES_SOURCE_PROPERTIES)
     message(FATAL_ERROR 
       "map_directory_properties SOURCE_PROPERTIES: properties not specified"
     )
-  endif()
+  endif ()
   if (NOT MAP_PROPERTIES_DESTINATION_PROPERTIES)
     message(FATAL_ERROR 
       "map_directory_properties DESTINATION_PROPERTIES: properties not specified"
     )
-  endif()
+  endif ()
 
   # Args are set up independently here so that the 'SOURCE' and 'DESTINATION' value can
   # retain any spaces when passed to 'copy_properties' below. This is necessary since 
@@ -368,12 +368,12 @@ function(map_directory_properties)
   set(source_arg DIRECTORY)
   if (MAP_PROPERTIES_SOURCE)
     set(source_arg DIRECTORY "${MAP_PROPERTIES_SOURCE}")
-  endif()
+  endif ()
 
   set(destination_arg DIRECTORY)
   if (MAP_PROPERTIES_DESTINATION)
     set(destination_arg DIRECTORY "${MAP_PROPERTIES_DESTINATION}")
-  endif()
+  endif ()
 
   map_properties(
     SOURCE "${source_arg}"

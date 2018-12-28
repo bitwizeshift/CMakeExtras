@@ -13,7 +13,7 @@ include(CheckCXXCompilerFlag)
 
 if (CMAKE_VERSION VERSION_LESS 3.5.0)
   include(CMakeParseArguments)
-endif()
+endif ()
 
 function(_compiler_warnings_get_flags result_var)
   cmake_parse_arguments(
@@ -29,7 +29,7 @@ function(_compiler_warnings_get_flags result_var)
       "enable_compiler_warnings: "
       "Unknown argument '${COMPILER_WARNINGS_UNPARSED_ARGUMENTS}'"
     )
-  endif()
+  endif ()
 
   set(result)
   if (MSVC)
@@ -37,30 +37,30 @@ function(_compiler_warnings_get_flags result_var)
  
     if (ENABLE_EXTRA_COMPILER_WARNINGS)
       list(APPEND result "/Wall")
-    endif()
+    endif ()
   else ()
     check_cxx_compiler_flag("-Wall" compiler_supports_wall)
     if (compiler_supports_wall)
       list(APPEND result"-Wall")
-    endif()
+    endif ()
   
     check_cxx_compiler_flag("-W" compiler_supports_w)
-    if(compiler_supports_w)
+    if (compiler_supports_w)
       list(APPEND result "-W")
-    endif()
+    endif ()
 
     if (ENABLE_EXTRA_COMPILER_WARNINGS)
       check_cxx_compiler_flag("-Weverything" compiler_supports_weverything)
       if (compiler_supports_wextra)
         list(APPEND result "-Weverything")
-      endif() 
+      endif () 
 
       check_cxx_compiler_flag("-Wextra" compiler_supports_wextra)
       if (compiler_supports_weverything)
         list(APPEND result "-Wextra")
-      endif()
-    endif()
-  endif()
+      endif ()
+    endif ()
+  endif ()
 
   set("${result_var}" ${result} PARENT_SCOPE)
 endfunction()
@@ -122,7 +122,7 @@ function(target_enable_compiler_warnings target)
       "target_enable_compiler_warnings:" 
       "Cannot enable warnings on INTERFACE library."
     )
-  endif()
+  endif ()
 
   _compiler_warnings_get_flags(flags ${ARGN})
   target_compile_options(${target} PRIVATE ${flags})

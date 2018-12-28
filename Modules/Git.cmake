@@ -18,7 +18,7 @@ find_package(Git QUIET)
 
 if (CMAKE_VERSION VERSION_LESS 3.5.0)
   include(CMakeParseArguments)
-endif()
+endif ()
 
 #.rst:
 # .. command:: git_sha1
@@ -46,7 +46,7 @@ function(git_sha1 result_var)
   set(short_flag)
   if (GIT_SHORT)
     set(short_flag "--short")
-  endif()
+  endif ()
 
   execute_process(
     COMMAND "${GIT_EXECUTABLE}" rev-parse ${short_flag} HEAD
@@ -60,7 +60,7 @@ function(git_sha1 result_var)
 
   if (NOT _result EQUAL 0)
     message(FATAL_ERROR "git_branch: Error retrieving branch name. ${error}")
-  endif()
+  endif ()
 
   set("${result_var}" ${output} PARENT_SCOPE)
 endfunction()
@@ -88,7 +88,7 @@ function(git_branch result_var)
 
   if (NOT _result EQUAL 0)
     message(FATAL_ERROR "git_branch: Error retrieving branch name. ${error}")
-  endif()
+  endif ()
 
   set("${result_var}" ${output} PARENT_SCOPE)
 endfunction()
