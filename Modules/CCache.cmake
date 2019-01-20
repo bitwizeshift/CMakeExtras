@@ -34,15 +34,15 @@ macro(enable_ccache)
     message(FATAL_ERROR "enable_ccache: ccache not found.")
   endif ()
 
-  if (CMAKE_VERSION VERSION_GREATER 3.3)
-    # CMake 3.4 introduced 'COMPILER_LAUNCHER'
-    set(CMAKE_C_COMPILER_LAUNCHER "${CCACHE_EXECUTABLE}")
-    set(CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_EXECUTABLE}")
-  else ()
+  if (CMAKE_VERSION VERSION_LESS 3.4)
     # Prior to 3.4, had to use these properties
     # Note: These may conflict with CTest
     set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CCACHE_EXECUTABLE}")
     set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK "${CCACHE_EXECUTABLE}")
+  else ()
+    # CMake 3.4 introduced 'COMPILER_LAUNCHER'
+    set(CMAKE_C_COMPILER_LAUNCHER "${CCACHE_EXECUTABLE}")
+    set(CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_EXECUTABLE}")
   endif ()
 endmacro()
 
